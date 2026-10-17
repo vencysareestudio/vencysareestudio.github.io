@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vency's Saree Studio</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Vency's Saree Studio, Pandalam – saree pre-pleating, box folding and saree rolling. Call or WhatsApp 89211 91218.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Mulish:wght@400;600;700&display=swap">
+<style>
+/* Layout: hero with three illustrated draped models on an arch, sticky tab bar, then Services / Work / Reviews / Visit panels */
+:root{
+  --bg:#f7f4f1; --surface:#ffffff; --fg:#1f2a2e; --muted:#5d6a6e; --line:#e3ddd6;
+  --peacock:#0f5e63; --peacock-soft:#dcecea; --zari:#a87b1f; --zari-soft:#f3e7cc; --silk:#9c2f55; --arch:#efe3d3;
+  --display:"Yeseva One", Georgia, "Times New Roman", serif;
+  --body:"Mulish", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f1719; --surface:#162225; --fg:#ece6dc; --muted:#a3aea9; --line:#26363a;
+  --peacock:#4fb3ad; --peacock-soft:#173a3b; --zari:#d9b061; --zari-soft:#3a3020; --silk:#e07a9c; --arch:#1c2b2e; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1719; --surface:#162225; --fg:#ece6dc; --muted:#a3aea9; --line:#26363a;
+  --peacock:#4fb3ad; --peacock-soft:#173a3b; --zari:#d9b061; --zari-soft:#3a3020; --silk:#e07a9c; --arch:#1c2b2e; color-scheme:dark}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.6;margin:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.wrap{max-width:1120px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.15;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.7rem,3.5vw,2.3rem)}
+p{margin:0}
+.eyebrow{font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--zari);font-weight:700}
+a{color:var(--peacock)}
+:focus-visible{outline:2px solid var(--zari);outline-offset:3px;border-radius:4px}
+
+/* hero */
+.hero{padding-block:40px 36px}
+.hero-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:40px;align-items:center}
+.hero h1{font-size:clamp(2.2rem,5.6vw,3.7rem);margin-top:10px}
+.hero h1 em{font-style:normal;color:var(--silk)}
+.hero .lead{margin-top:16px;font-size:1.08rem;color:var(--muted);max-width:50ch}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 20px;border-radius:999px;font-weight:700;text-decoration:none;border:1.5px solid var(--peacock);font-size:.95rem;cursor:pointer;font-family:var(--body);line-height:1.2}
+.btn.primary{background:var(--peacock);color:var(--bg)}
+.btn.ghost{background:transparent;color:var(--peacock)}
+.facts{display:flex;flex-wrap:wrap;gap:26px;margin-top:28px}
+.facts b{display:block;font-family:var(--display);font-size:1.35rem;font-weight:400}
+.facts span{font-size:.85rem;color:var(--muted)}
+.stage{position:relative;display:grid;grid-template-columns:repeat(3,1fr);align-items:end;gap:4px;padding:28px 12px 0;border-radius:240px 240px 18px 18px;background:var(--arch);overflow:hidden;max-width:100%}
+.stage::after{content:"";position:absolute;left:0;right:0;bottom:0;height:12px;background:repeating-linear-gradient(90deg,var(--zari) 0 8px,var(--zari-soft) 8px 11px)}
+.model{display:flex;flex-direction:column;align-items:center;gap:2px;padding-bottom:22px;min-width:0}
+.model svg{width:100%;max-width:170px;height:auto;display:block}
+.model:nth-child(2) svg{max-width:185px}
+.model small{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:700;text-align:center}
+@media (prefers-reduced-motion:no-preference){
+  .model{animation:rise .7s ease-out both}
+  .model:nth-child(2){animation-delay:.12s}.model:nth-child(3){animation-delay:.24s}
+  @keyframes rise{from{transform:translateY(14px)}to{transform:none}}
+}
+
+/* tabs */
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-block:1px solid var(--line)}
+.tabs nav{display:flex;gap:4px;overflow-x:auto;padding-block:8px}
+.tabs button{flex:none;background:none;border:0;padding:9px 16px;border-radius:999px;font:600 .95rem var(--body);color:var(--muted);cursor:pointer}
+.tabs button[aria-selected="true"]{background:var(--peacock-soft);color:var(--peacock)}
+.panel{padding-block:44px 60px}
+.panel-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:14px;margin-bottom:28px}
+.panel-head > p{color:var(--muted);max-width:56ch}
+
+/* services */
+.services{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.svc{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.svc img{width:100%;aspect-ratio:3/2;object-fit:cover;display:block;max-width:100%}
+.svc div{padding:18px 20px 22px;display:flex;flex-direction:column;gap:8px}
+.svc h3{font-size:1.3rem}
+.svc p{color:var(--muted);font-size:.95rem}
+.steps{margin-top:40px;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.step{display:flex;flex-direction:column;gap:6px;border-top:2px solid var(--zari);padding-top:12px}
+.step .n{font-family:var(--display);font-size:1.5rem;color:var(--zari)}
+.step p{color:var(--muted);font-size:.92rem}
+.note{margin-top:28px;background:var(--zari-soft);border-radius:12px;padding:14px 18px;font-size:.95rem}
+
+/* gallery */
+.filters{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--fg);padding:6px 14px;border-radius:999px;font:600 .85rem var(--body);cursor:pointer}
+.chip[aria-pressed="true"]{border-color:var(--peacock);background:var(--peacock);color:var(--bg)}
+.videos{display:grid;grid-template-columns:repeat(2,minmax(0,260px));gap:16px;margin-bottom:28px}
+.videos figure{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.videos video{width:100%;aspect-ratio:478/850;max-width:100%;display:block;background:#000;object-fit:cover}
+.videos figcaption{padding:10px 14px;font-size:.88rem;color:var(--muted)}
+.gallery{columns:4 220px;column-gap:14px}
+.shot{break-inside:avoid;margin:0 0 14px;background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:zoom-in;padding:0;display:block;width:100%;text-align:left;font:inherit;color:inherit}
+.shot img{width:100%;height:auto;display:block}
+.shot span{display:block;padding:8px 12px;font-size:.82rem;color:var(--muted)}
+@media (prefers-reduced-motion:no-preference){.shot{transition:transform .2s}.shot:hover{transform:translateY(-2px)}}
+.lightbox{position:fixed;inset:0;z-index:20;background:rgba(10,14,15,.92);display:flex;align-items:center;justify-content:center;
+  padding:max(16px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) max(16px,env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.lightbox img{max-width:100%;max-height:100%;border-radius:8px}
+.lightbox button{position:absolute;top:calc(12px + env(safe-area-inset-top,0px));right:calc(12px + env(safe-area-inset-right,0px));background:#fff;color:#111;border:0;border-radius:999px;padding:8px 14px;font:700 .9rem var(--body);cursor:pointer}
+
+/* reviews */
+.rev-empty{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:28px;display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:center}
+.gbadge{width:88px;height:88px;border-radius:50%;background:var(--zari-soft);display:grid;place-items:center;font-family:var(--display);font-size:2rem;color:var(--zari)}
+.rev-empty h3{font-size:1.4rem}
+.rev-empty p{color:var(--muted);margin-top:6px;max-width:60ch}
+.rev-empty .cta-row{margin-top:16px}
+.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:24px}
+.rev{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:10px}
+.stars{color:var(--zari);letter-spacing:2px}
+.rev .who{margin-top:auto;font-size:.85rem;color:var(--muted)}
+
+/* visit */
+.visit{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px;min-width:0}
+.rows{display:grid;gap:16px;margin:0}
+.row{display:grid;grid-template-columns:110px 1fr;gap:12px;align-items:start}
+.row dt{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.row dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.big{font-family:var(--display);font-size:1.35rem}
+.copy{margin-left:8px;font:600 .75rem var(--body);border:1px solid var(--line);background:none;color:var(--peacock);border-radius:6px;padding:2px 8px;cursor:pointer;vertical-align:middle}
+.map{margin-top:20px;aspect-ratio:16/7;max-width:100%;border-radius:12px;overflow:hidden;display:grid;place-items:center;text-align:center;
+  background:linear-gradient(var(--line) 1px,transparent 1px) 0 0/24px 24px,linear-gradient(90deg,var(--line) 1px,transparent 1px) 0 0/24px 24px,var(--peacock-soft)}
+.map a{background:var(--surface);padding:10px 16px;border-radius:999px;text-decoration:none;font-weight:700;border:1px solid var(--line)}
+form.enq{display:grid;gap:12px;margin-top:12px}
+form.enq label{font-size:.8rem;font-weight:700;color:var(--muted)}
+form.enq input,form.enq select,form.enq textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--fg);font:inherit}
+.out{margin-top:14px;background:var(--bg);border:1px dashed var(--peacock);border-radius:10px;padding:14px;font-size:.9rem}
+.out pre{white-space:pre-wrap;font:inherit;margin:0 0 12px}
+.fab{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:8;background:#1f8f4e;color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:999px;box-shadow:0 8px 24px rgba(0,0,0,.25);font-size:.92rem}
+footer{border-top:1px solid var(--line);padding-block:24px 84px;color:var(--muted);font-size:.85rem}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+
+@media (max-width:900px){
+  .hero-grid,.visit{grid-template-columns:1fr}
+  .services,.reviews{grid-template-columns:1fr 1fr}
+  .steps{grid-template-columns:1fr 1fr}
+}
+@media (max-width:560px){
+  .services,.reviews,.steps{grid-template-columns:1fr}
+  .videos{grid-template-columns:1fr 1fr}
+  .row{grid-template-columns:1fr;gap:2px}
+  .rev-empty{grid-template-columns:1fr}
+  .stage{padding-inline:4px}
+  .model small{font-size:.62rem}
+}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow">Pandalam · Saree pre-pleating &amp; rolling</div>
+      <h1>Drape your saree in <em>two minutes</em>, perfectly pleated.</h1>
+      <p class="lead">Vency pre-pleats, presses and box-folds your sarees so the pleats and pallu fall exactly right on the day. For weddings, functions, office wear and travel.</p>
+      <div class="cta-row">
+        <a class="btn primary" href="https://wa.me/918921191218?text=Hi%20Vency%2C%20I%20would%20like%20to%20get%20my%20saree%20pre-pleated." target="_blank" rel="noopener">WhatsApp Vency</a>
+        <a class="btn ghost" href="#work" data-go="work">See our work</a>
+      </div>
+      <div class="facts">
+        <div><b>All fabrics</b><span>Kanchipuram, kasavu, soft silk, cotton</span></div>
+        <div><b>No cutting</b><span>No stitching, saree stays original</span></div>
+        <div><b>Travel ready</b><span>Box folded or rolled</span></div>
+      </div>
+    </div>
+    <div class="stage" id="stage" aria-label="Illustrated models wearing pre-pleated sarees"></div>
+  </div>
+</header>
+
+<div class="tabs">
+  <div class="wrap">
+    <nav role="tablist" aria-label="Sections">
+      <button role="tab" id="t-services" aria-controls="services" aria-selected="true">Services</button>
+      <button role="tab" id="t-work" aria-controls="work" aria-selected="false">Our Work</button>
+      <button role="tab" id="t-reviews" aria-controls="reviews" aria-selected="false">Customer Reviews</button>
+      <button role="tab" id="t-visit" aria-controls="visit" aria-selected="false">Location &amp; Contact</button>
+    </nav>
+  </div>
+</div>
+
+<main>
+  <section class="panel" id="services" role="tabpanel" aria-labelledby="t-services">
+    <div class="wrap">
+      <div class="panel-head">
+        <div><div class="eyebrow">What we do</div><h2>Our services</h2></div>
+        <p>Every saree is steamed, pleated to your height and drape style, and pinned so it holds until you wear it.</p>
+      </div>
+      <div class="services">
+        <article class="svc"><img src="img/pleats-85.jpg" alt="Silk saree pleats being set on the board" loading="lazy"><div><h3>Pre-pleating</h3><p>Front pleats and pallu pleats set and pressed to your measurements. Just tuck and pin.</p></div></article>
+        <article class="svc"><img src="img/silk-44.jpg" alt="Box-folded orange Kanchipuram silk saree" loading="lazy"><div><h3>Box folding</h3><p>The pleated saree is folded flat into a neat box shape that holds the pleats in storage.</p></div></article>
+        <article class="svc"><img src="img/rolled-76.jpg" alt="Sarees rolled and packed for travel" loading="lazy"><div><h3>Saree rolling</h3><p>Pleated and rolled to pack in a suitcase without creasing. Popular for destination weddings.</p></div></article>
+        <article class="svc"><img src="img/kerala-82.jpg" alt="Kerala kasavu saree with pleats pinned" loading="lazy"><div><h3>Kerala kasavu &amp; set sarees</h3><p>Crisp, even pleats for kasavu and cotton sarees for Onam, Vishu, temple visits and weddings.</p></div></article>
+        <article class="svc"><img src="img/silk-62.jpg" alt="Box-folded bridal silk saree" loading="lazy"><div><h3>Bridal &amp; heavy silk</h3><p>Extra care for Kanchipuram, Banarasi and heavy zari work, so the border lines up on the pallu.</p></div></article>
+        <article class="svc"><img src="img/packed-87.jpg" alt="Many pre-pleated sarees packed for a family function" loading="lazy"><div><h3>Bulk &amp; family orders</h3><p>Wedding party or family function? We pleat and pack the whole set, labelled and ready.</p></div></article>
+      </div>
+
+      <div class="steps">
+        <div class="step"><span class="n">1</span><h3>Send details</h3><p>WhatsApp your height, drape style and event date.</p></div>
+        <div class="step"><span class="n">2</span><h3>Drop off</h3><p>Bring the saree with blouse and petticoat to the studio.</p></div>
+        <div class="step"><span class="n">3</span><h3>We pleat</h3><p>Steamed, measured, pleated, then box folded or rolled.</p></div>
+        <div class="step"><span class="n">4</span><h3>Wear it</h3><p>Tuck, pin and you are ready in about two minutes.</p></div>
+      </div>
+      <p class="note"><b>Urgent function?</b> Same-day pleating may be possible depending on slots. Call or WhatsApp Vency on 89211 91218.</p>
+    </div>
+  </section>
+
+  <section class="panel" id="work" role="tabpanel" aria-labelledby="t-work" hidden>
+    <div class="wrap">
+      <div class="panel-head">
+        <div><div class="eyebrow">Gallery</div><h2>Work we've done</h2></div>
+        <div class="filters" id="filters">
+          <button class="chip" aria-pressed="true" data-f="all">All</button>
+          <button class="chip" aria-pressed="false" data-f="silk">Silk sarees</button>
+          <button class="chip" aria-pressed="false" data-f="kerala">Kerala kasavu</button>
+          <button class="chip" aria-pressed="false" data-f="pleats">Pleating</button>
+          <button class="chip" aria-pressed="false" data-f="rolled">Rolled</button>
+          <button class="chip" aria-pressed="false" data-f="packed">Packed &amp; ready</button>
+        </div>
+      </div>
+      <div class="videos">
+        <figure><video src="video/work-43.mp4" poster="video/work-43.jpg" muted loop playsinline controls preload="none"></video><figcaption>Finished pleats, ready to wear</figcaption></figure>
+        <figure><video src="video/work-48.mp4" poster="video/work-48.jpg" muted loop playsinline controls preload="none"></video><figcaption>Sarees rolled and packed</figcaption></figure>
+      </div>
+      <div class="gallery" id="gallery"></div>
+    </div>
+  </section>
+
+  <section class="panel" id="reviews" role="tabpanel" aria-labelledby="t-reviews" hidden>
+    <div class="wrap">
+      <div class="panel-head">
+        <div><div class="eyebrow">Customer reviews</div><h2>What customers say</h2></div>
+      </div>
+      <div class="reviews" id="revList" hidden></div>
+      <div class="rev-empty">
+        <div class="gbadge" aria-hidden="true">★</div>
+        <div>
+          <h3>Read and write reviews on Google</h3>
+          <p>Customer reviews for Vency's Saree Studio are on Google. Had your saree pleated with us? A short review helps other customers in Pandalam find us.</p>
+          <div class="cta-row">
+            <a class="btn primary" id="gReviews" href="https://www.google.com/maps/search/?api=1&amp;query=Vency%27s+Saree+Studio+Pandalam" target="_blank" rel="noopener">See reviews on Google</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="visit" role="tabpanel" aria-labelledby="t-visit" hidden>
+    <div class="wrap">
+      <div class="panel-head">
+        <div><div class="eyebrow">Find us</div><h2>Location &amp; contact</h2></div>
+        <p>Please call or WhatsApp before visiting so Vency can keep your slot ready.</p>
+      </div>
+      <div class="visit">
+        <div class="card">
+          <dl class="rows">
+            <div class="row"><dt>Contact</dt><dd class="big">Vency</dd></div>
+            <div class="row"><dt>Phone</dt><dd><a href="tel:+918921191218" id="ph" class="big">+91 89211 91218</a><button class="copy" data-copy="+91 89211 91218">Copy</button></dd></div>
+            <div class="row"><dt>WhatsApp</dt><dd><a href="https://wa.me/918921191218" target="_blank" rel="noopener">Chat on WhatsApp</a></dd></div>
+            <div class="row"><dt>Address</dt><dd>Ashwini House, Ground Floor<br>CM Hospital Road, Near Reading Library<br>Pandalam, Kerala 689501<button class="copy" data-copy="Ashwini House, Ground Floor, CM Hospital Road, Near Reading Library, Pandalam 689501">Copy</button></dd></div>
+          </dl>
+          <div class="map"><a href="https://www.google.com/maps/search/?api=1&amp;query=CM+Hospital+Road+Reading+Library+Pandalam+689501" target="_blank" rel="noopener">Open in Google Maps ↗</a></div>
+        </div>
+        <div class="card">
+          <h3 style="font-size:1.4rem">Book a pleating</h3>
+          <p style="color:var(--muted);font-size:.92rem;margin-top:6px">Fill this in and send it to Vency on WhatsApp. She will confirm your slot.</p>
+          <form class="enq" id="enq">
+            <div><label for="f-name">Your name</label><input id="f-name" required placeholder="Name"></div>
+            <div><label for="f-svc">Service</label>
+              <select id="f-svc"><option>Pre-pleating</option><option>Box folding</option><option>Saree rolling</option><option>Kerala kasavu / set saree</option><option>Bridal &amp; heavy silk</option><option>Bulk / family order</option></select></div>
+            <div><label for="f-qty">Number of sarees</label><input id="f-qty" type="number" min="1" value="1"></div>
+            <div><label for="f-date">Function date</label><input id="f-date" type="date"></div>
+            <div><label for="f-note">Height / drape style / notes</label><textarea id="f-note" rows="3" placeholder="e.g. 5'3&quot;, Nivi drape, Kanchipuram silk"></textarea></div>
+            <button class="btn primary" type="submit">Prepare message</button>
+          </form>
+          <div class="out" id="out" hidden><pre id="msg"></pre><a class="btn primary" id="sendWa" target="_blank" rel="noopener" href="https://wa.me/918921191218">Send on WhatsApp</a></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<a class="fab" href="https://wa.me/918921191218" target="_blank" rel="noopener">WhatsApp 89211 91218</a>
+
+<footer>
+  <div class="wrap"><span>© 2026 Vency's Saree Studio, Pandalam · Saree pre-pleating, box folding &amp; rolling</span><span>Pleated with care, worn with ease.</span></div>
+</footer>
+
+<script>
+/* ---- Add Google reviews here: copy each review from Google Maps into this list ----
+   Example: {name:"Anu", stars:5, text:"Pleats were perfect for my wedding.", when:"Oct 2026"}  */
+const REVIEWS = [];
+
+(function(){
+  // Illustrated models
+  function model(o){
+    const s=o.saree,b=o.border,bl=o.blouse,k=o.skin,h='#1d1412',edge='rgba(0,0,0,.14)';
+    let pleats='';for(let i=0;i<7;i++){pleats+=`<line x1="${95+i*2.6}" y1="182" x2="${76+i*8}" y2="466" stroke="rgba(0,0,0,.16)" stroke-width="1.2"/>`}
+    return `<svg viewBox="0 0 200 490" role="img" aria-label="${o.label}">
+      <ellipse cx="100" cy="480" rx="60" ry="6" fill="rgba(0,0,0,.10)"/>
+      <path d="M126 104 L152 112 L161 344 L133 348 Z" fill="${s}" stroke="${edge}"/>
+      <path d="M133 348 L161 344 L160 326 L132 330 Z" fill="${b}"/>
+      <path d="M150 112 L159 344" stroke="${b}" stroke-width="4"/>
+      <path d="M71 106 C62 132 60 182 62 236 L72 236 C72 192 76 142 81 116 Z" fill="${k}"/>
+      <circle cx="67" cy="241" r="6" fill="${k}"/>
+      <path d="M68 222 l8 0 l0 5 l-8 0 Z" fill="${b}"/>
+      <rect x="92" y="78" width="16" height="26" fill="${k}"/>
+      <ellipse cx="100" cy="58" rx="21" ry="24" fill="${k}"/>
+      <path d="M78 60 C76 28 124 26 122 58 C118 44 104 39 92 43 C85 46 80 52 78 60 Z" fill="${h}"/>
+      <circle cx="121" cy="43" r="11" fill="${h}"/>
+      <circle cx="131" cy="38" r="2.4" fill="#fff"/><circle cx="133" cy="44" r="2.4" fill="#fff"/><circle cx="131" cy="50" r="2.4" fill="#fff"/>
+      <circle cx="100" cy="49" r="1.8" fill="#b3122e"/>
+      <circle cx="79.5" cy="67" r="2.6" fill="#d4a73a"/><circle cx="120.5" cy="67" r="2.6" fill="#d4a73a"/>
+      <path d="M90 94 Q100 104 110 94" stroke="#d4a73a" stroke-width="2" fill="none"/>
+      <path d="M74 104 Q100 96 126 104 L124 150 Q100 156 78 150 Z" fill="${bl}"/>
+      <path d="M79 150 Q100 156 123 150 L125 167 L77 167 Z" fill="${k}"/>
+      <path d="M76 165 L126 165 C134 262 146 382 151 472 L49 472 C54 382 68 262 76 165 Z" fill="${s}" stroke="${edge}"/>
+      ${pleats}
+      <path d="M51 450 L149 450 L151 472 L49 472 Z" fill="${b}"/>
+      <path d="M51 444 L149 444" stroke="${b}" stroke-width="2"/>
+      <path d="M71 160 L87 178 L135 115 L129 100 L115 100 Z" fill="${s}" stroke="${edge}"/>
+      <path d="M87 178 L135 115" stroke="${b}" stroke-width="6"/>
+      <path d="M73 160 L116 101" stroke="${b}" stroke-width="2"/>
+      <path d="M127 108 C138 142 140 192 138 236 L128 236 C128 192 124 152 119 122 Z" fill="${k}"/>
+      <circle cx="133" cy="241" r="6" fill="${k}"/>
+      <path d="M128 222 l9 0 l0 5 l-9 0 Z" fill="${b}"/>
+      <ellipse cx="84" cy="476" rx="10" ry="4" fill="${k}"/><ellipse cx="116" cy="476" rx="10" ry="4" fill="${k}"/>
+    </svg>`;
+  }
+  const models=[
+    {label:'Model in orange Kanchipuram silk with gold zari border',saree:'#e0761c',border:'#c4952e',blouse:'#b3122e',skin:'#c48a5c',name:'Kanchipuram silk'},
+    {label:'Model in cream Kerala kasavu saree with gold border',saree:'#f4eedf',border:'#d0a33a',blouse:'#2f6b45',skin:'#a96f47',name:'Kerala kasavu'},
+    {label:'Model in teal soft silk saree with purple border',saree:'#1593b8',border:'#5b2a6e',blouse:'#5b2a6e',skin:'#dba077',name:'Soft silk'}
+  ];
+  document.getElementById('stage').innerHTML=models.map(m=>`<div class="model">${model(m)}<small>${m.name}</small></div>`).join('');
+
+  // Tabs
+  const tabs=[...document.querySelectorAll('[role=tab]')];
+  function show(id,scroll){
+    tabs.forEach(t=>{const on=t.getAttribute('aria-controls')===id;t.setAttribute('aria-selected',on);document.getElementById(t.getAttribute('aria-controls')).hidden=!on});
+    if(scroll)document.querySelector('.tabs').scrollIntoView({behavior:'smooth'});
+  }
+  tabs.forEach(t=>t.addEventListener('click',()=>show(t.getAttribute('aria-controls'))));
+  document.querySelectorAll('[data-go]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();show(a.dataset.go,true)}));
+  const h=location.hash.slice(1);if(['services','work','reviews','visit'].includes(h))show(h);
+
+  // Gallery
+  const label={silk:'Silk saree, box folded',kerala:'Kerala kasavu saree',pleats:'Pleats set on the board',rolled:'Rolled for travel',packed:'Packed and ready'};
+  const photos=[["silk-44",1100,791],["silk-46",1100,885],["kerala-82",1050,1100],["pleats-85",498,1100],["packed-87",619,1100],["silk-62",1100,498],["rolled-76",498,1100],["kerala-71",498,1100],["pleats-86",498,1100],["silk-45",1100,733],["silk-47",498,1100],["packed-88",498,1100],["kerala-81",592,1100],["silk-49",498,1100],["pleats-69",498,1100],["silk-51",1100,498],["kerala-84",498,1100],["packed-59",498,1100],["silk-55",498,1100],["pleats-72",498,1100],["silk-56",498,1100],["kerala-70",1100,498],["rolled-52",498,1100],["silk-58",1100,498],["pleats-80",498,1100],["packed-57",1100,498],["kerala-74",498,1100],["silk-60",1100,498],["pleats-64",498,1100],["silk-61",1100,498],["packed-65",1100,498],["kerala-78",498,1100],["silk-67",1100,498],["pleats-63",498,1100],["packed-66",1100,498],["kerala-79",498,1100],["silk-68",1100,498],["pleats-48",1100,498],["packed-43",1100,498],["kerala-83",1100,498],["silk-73",498,1100],["pleats-54",498,1100],["packed-50",498,1100],["silk-77",498,1100],["packed-89",498,1100],["packed-53",498,1100]];
+  const g=document.getElementById('gallery');let filter='all';
+  function render(){
+    g.innerHTML='';
+    photos.filter(p=>filter==='all'||p[0].startsWith(filter+'-')).forEach(([f,w,hh])=>{
+      const c=f.split('-')[0];
+      const b=document.createElement('button');b.className='shot';b.type='button';
+      b.innerHTML=`<img src="img/${f}.jpg" width="${w}" height="${hh}" loading="lazy" alt="${label[c]}"><span>${label[c]}</span>`;
+      b.addEventListener('click',()=>openLb(`img/${f}.jpg`,label[c]));g.appendChild(b);
+    });
+  }
+  document.getElementById('filters').addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;
+    filter=b.dataset.f;document.querySelectorAll('.chip').forEach(c=>c.setAttribute('aria-pressed',c===b));render()});
+  render();
+  function openLb(src,alt){
+    const d=document.createElement('div');d.className='lightbox';d.innerHTML=`<img src="${src}" alt="${alt}"><button type="button">Close</button>`;
+    const close=()=>{d.remove();document.removeEventListener('keydown',esc)};const esc=e=>{if(e.key==='Escape')close()};
+    d.addEventListener('click',e=>{if(e.target!==d.querySelector('img'))close()});document.addEventListener('keydown',esc);
+    document.body.appendChild(d);d.querySelector('button').focus();
+  }
+
+  // Reviews
+  if(REVIEWS.length){
+    const l=document.getElementById('revList');l.hidden=false;
+    REVIEWS.forEach(r=>{const a=document.createElement('article');a.className='rev';
+      a.innerHTML='<div class="stars"></div><p></p><div class="who"></div>';
+      a.children[0].textContent='★'.repeat(r.stars||5);a.children[1].textContent=r.text;a.children[2].textContent=r.name+(r.when?' · '+r.when:'')+' · Google review';l.appendChild(a)});
+  }
+
+  // Copy buttons
+  document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{
+    const done=()=>{b.textContent='Copied';setTimeout(()=>b.textContent='Copy',1500)};
+    try{navigator.clipboard.writeText(b.dataset.copy).then(done,()=>{})}catch(_){}
+  }));
+
+  // Booking -> WhatsApp
+  document.getElementById('enq').addEventListener('submit',e=>{
+    e.preventDefault();const v=id=>document.getElementById(id).value;
+    const msg=`Hi Vency,\nName: ${v('f-name')}\nService: ${v('f-svc')}\nSarees: ${v('f-qty')}\nFunction date: ${v('f-date')||'-'}\nNotes: ${v('f-note')||'-'}`;
+    document.getElementById('msg').textContent=msg;
+    document.getElementById('sendWa').href='https://wa.me/918921191218?text='+encodeURIComponent(msg);
+    document.getElementById('out').hidden=false;
+  });
+})();
+</script>
+</body>
+</html>
