@@ -47,7 +47,7 @@ a{color:var(--peacock)}
 .facts{display:flex;flex-wrap:wrap;gap:26px;margin-top:28px}
 .facts b{display:block;font-family:var(--display);font-size:1.35rem;font-weight:400}
 .facts span{font-size:.85rem;color:var(--muted)}
-.stage{position:relative;display:grid;grid-template-columns:repeat(3,1fr);align-items:end;gap:4px;padding:28px 12px 0;border-radius:240px 240px 18px 18px;background:var(--arch);overflow:hidden;max-width:100%}
+.stage{position:relative;display:grid;grid-template-columns:repeat(3,1fr);align-items:end;gap:4px;padding:56px 12px 0;border-radius:240px 240px 18px 18px;background:var(--arch);overflow:hidden;max-width:100%}
 .stage::after{content:"";position:absolute;left:0;right:0;bottom:0;height:12px;background:repeating-linear-gradient(90deg,var(--zari) 0 8px,var(--zari-soft) 8px 11px)}
 .model{display:flex;flex-direction:column;align-items:center;gap:2px;padding-bottom:22px;min-width:0}
 .model svg{width:100%;max-width:170px;height:auto;display:block}
@@ -311,44 +311,112 @@ const REVIEWS = [
 
 (function(){
   // Illustrated models
+  function sh(hex,p){const n=parseInt(hex.slice(1),16);const c=[n>>16,(n>>8)&255,n&255].map(v=>Math.round(p<0?v*(1+p):v+(255-v)*p));return '#'+c.map(x=>Math.max(0,Math.min(255,x)).toString(16).padStart(2,'0')).join('')}
+  let mi=0;
   function model(o){
-    const s=o.saree,b=o.border,bl=o.blouse,k=o.skin,h='#1d1412',edge='rgba(0,0,0,.14)';
-    let pleats='';for(let i=0;i<7;i++){pleats+=`<line x1="${95+i*2.6}" y1="182" x2="${76+i*8}" y2="466" stroke="rgba(0,0,0,.16)" stroke-width="1.2"/>`}
-    return `<svg viewBox="0 0 200 490" role="img" aria-label="${o.label}">
-      <ellipse cx="100" cy="480" rx="60" ry="6" fill="rgba(0,0,0,.10)"/>
-      <path d="M126 104 L152 112 L161 344 L133 348 Z" fill="${s}" stroke="${edge}"/>
-      <path d="M133 348 L161 344 L160 326 L132 330 Z" fill="${b}"/>
-      <path d="M150 112 L159 344" stroke="${b}" stroke-width="4"/>
-      <path d="M71 106 C62 132 60 182 62 236 L72 236 C72 192 76 142 81 116 Z" fill="${k}"/>
-      <circle cx="67" cy="241" r="6" fill="${k}"/>
-      <path d="M68 222 l8 0 l0 5 l-8 0 Z" fill="${b}"/>
-      <rect x="92" y="78" width="16" height="26" fill="${k}"/>
-      <ellipse cx="100" cy="58" rx="21" ry="24" fill="${k}"/>
-      <path d="M78 60 C76 28 124 26 122 58 C118 44 104 39 92 43 C85 46 80 52 78 60 Z" fill="${h}"/>
-      <circle cx="121" cy="43" r="11" fill="${h}"/>
-      <circle cx="131" cy="38" r="2.4" fill="#fff"/><circle cx="133" cy="44" r="2.4" fill="#fff"/><circle cx="131" cy="50" r="2.4" fill="#fff"/>
-      <circle cx="100" cy="49" r="1.8" fill="#b3122e"/>
-      <circle cx="79.5" cy="67" r="2.6" fill="#d4a73a"/><circle cx="120.5" cy="67" r="2.6" fill="#d4a73a"/>
-      <path d="M90 94 Q100 104 110 94" stroke="#d4a73a" stroke-width="2" fill="none"/>
-      <path d="M74 104 Q100 96 126 104 L124 150 Q100 156 78 150 Z" fill="${bl}"/>
-      <path d="M79 150 Q100 156 123 150 L125 167 L77 167 Z" fill="${k}"/>
-      <path d="M76 165 L126 165 C134 262 146 382 151 472 L49 472 C54 382 68 262 76 165 Z" fill="${s}" stroke="${edge}"/>
-      ${pleats}
-      <path d="M51 450 L149 450 L151 472 L49 472 Z" fill="${b}"/>
-      <path d="M51 444 L149 444" stroke="${b}" stroke-width="2"/>
-      <path d="M71 160 L87 178 L135 115 L129 100 L115 100 Z" fill="${s}" stroke="${edge}"/>
-      <path d="M87 178 L135 115" stroke="${b}" stroke-width="6"/>
-      <path d="M73 160 L116 101" stroke="${b}" stroke-width="2"/>
-      <path d="M127 108 C138 142 140 192 138 236 L128 236 C128 192 124 152 119 122 Z" fill="${k}"/>
-      <circle cx="133" cy="241" r="6" fill="${k}"/>
-      <path d="M128 222 l9 0 l0 5 l-9 0 Z" fill="${b}"/>
-      <ellipse cx="84" cy="476" rx="10" ry="4" fill="${k}"/><ellipse cx="116" cy="476" rx="10" ry="4" fill="${k}"/>
+    const i='m'+(mi++),s=o.saree,b=o.border,bl=o.blouse,k=o.skin,gold='#c9a13b',hair='#1a110d';
+    const zA=o.zari||b;
+    // pleats fan: waist 106..134 at y236 -> hem 80..150 at y572
+    let pleats='',plines='';const N=10;
+    for(let j=0;j<N;j++){
+      const t0=106+j*28/N,t1=106+(j+1)*28/N,b0=80+j*70/N,b1=80+(j+1)*70/N;
+      pleats+=`<path d="M${t0} 236 L${t1} 236 L${b1} 548 L${b0} 548 Z" fill="url(#${i}-p${j%2})"/>`;
+      plines+=`<path d="M${b0} 548 L${b0-.6} 572" stroke="rgba(0,0,0,.28)" stroke-width="1"/>`;
+    }
+    let jas='';for(let a=-70;a<=110;a+=22){const r=a*Math.PI/180;jas+=`<circle cx="${(150+17*Math.cos(r)).toFixed(1)}" cy="${(52+17*Math.sin(r)).toFixed(1)}" r="2.6" fill="#fffdf6" stroke="#e8e0cc" stroke-width=".5"/>`}
+    let tas='';for(let x=150;x<=186;x+=4){tas+=`<path d="M${x} ${414+(x-150)*.04} l0 7" stroke="${gold}" stroke-width="1.2"/>`}
+    return `<svg viewBox="0 0 240 600" role="img" aria-label="${o.label}">
+    <defs>
+      <radialGradient id="${i}-sk" cx=".42" cy=".38" r=".75"><stop offset="0" stop-color="${sh(k,.16)}"/><stop offset=".6" stop-color="${k}"/><stop offset="1" stop-color="${sh(k,-.28)}"/></radialGradient>
+      <linearGradient id="${i}-skl" x1="0" x2="1"><stop offset="0" stop-color="${sh(k,-.3)}"/><stop offset=".45" stop-color="${sh(k,.1)}"/><stop offset="1" stop-color="${sh(k,-.22)}"/></linearGradient>
+      <linearGradient id="${i}-sa" x1="0" x2="1"><stop offset="0" stop-color="${sh(s,-.32)}"/><stop offset=".28" stop-color="${s}"/><stop offset=".5" stop-color="${sh(s,.14)}"/><stop offset=".72" stop-color="${s}"/><stop offset="1" stop-color="${sh(s,-.36)}"/></linearGradient>
+      <linearGradient id="${i}-pd" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="${sh(s,-.2)}"/><stop offset=".5" stop-color="${sh(s,.12)}"/><stop offset="1" stop-color="${sh(s,-.12)}"/></linearGradient>
+      <linearGradient id="${i}-p0" x1="0" x2="1"><stop offset="0" stop-color="${sh(s,.16)}"/><stop offset="1" stop-color="${sh(s,-.1)}"/></linearGradient>
+      <linearGradient id="${i}-p1" x1="0" x2="1"><stop offset="0" stop-color="${sh(s,-.24)}"/><stop offset="1" stop-color="${sh(s,.04)}"/></linearGradient>
+      <linearGradient id="${i}-bl" x1="0" x2="1"><stop offset="0" stop-color="${sh(bl,-.35)}"/><stop offset=".5" stop-color="${sh(bl,.12)}"/><stop offset="1" stop-color="${sh(bl,-.35)}"/></linearGradient>
+      <linearGradient id="${i}-hr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a2a22"/><stop offset=".4" stop-color="${hair}"/><stop offset="1" stop-color="#0c0806"/></linearGradient>
+      <pattern id="${i}-z" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="${zA}"/><path d="M0 4 L4 0 L8 4 L4 8 Z" fill="${sh(zA,.28)}"/><circle cx="4" cy="4" r="1.1" fill="${sh(zA,-.3)}"/></pattern>
+    </defs>
+    <ellipse cx="120" cy="584" rx="72" ry="8" fill="rgba(0,0,0,.13)"/>
+    <!-- pallu hanging behind -->
+    <path d="M148 124 C166 128 176 140 178 160 L188 412 C176 420 160 420 150 414 L146 170 Z" fill="url(#${i}-sa)"/>
+    <path d="M176 150 L178 160 L188 412 L180 413 L170 158 Z" fill="url(#${i}-z)"/>
+    <path d="M150 396 C162 400 176 400 188 396 L188 412 C176 420 160 420 150 414 Z" fill="url(#${i}-z)"/>
+    ${tas}
+    <path d="M156 180 L160 404 M166 172 L171 405" stroke="rgba(0,0,0,.12)" stroke-width="2"/>
+    <!-- left arm -->
+    <path d="M88 124 C76 130 70 160 70 200 C68 240 70 270 74 302 L86 302 C86 270 88 240 90 205 C92 170 96 145 98 130 Z" fill="url(#${i}-skl)"/>
+    <ellipse cx="80" cy="314" rx="7.5" ry="13" fill="url(#${i}-sk)"/>
+    <rect x="72" y="284" width="15.5" height="3" rx="1.5" fill="${gold}"/><rect x="72.3" y="289" width="15" height="3" rx="1.5" fill="${b}"/><rect x="72.6" y="294" width="14.6" height="3" rx="1.5" fill="${gold}"/>
+    <!-- skirt -->
+    <path d="M86 222 L154 222 C160 250 162 275 160 300 C164 400 172 500 178 572 L62 572 C68 500 76 400 80 300 C78 275 80 250 86 222 Z" fill="url(#${i}-sa)"/>
+    <path d="M100 300 C98 400 94 480 90 548 M142 300 C144 400 150 480 154 548" stroke="rgba(0,0,0,.10)" stroke-width="3" fill="none"/>
+    ${pleats}
+    <path d="M104 232 Q120 242 136 232 L134 240 Q120 248 106 240 Z" fill="${sh(s,-.25)}"/>
+    <path d="M66 548 L174 548 L178 572 L62 572 Z" fill="url(#${i}-z)"/>
+    <path d="M66 548 L174 548" stroke="${sh(zA,-.35)}" stroke-width="1.2"/><path d="M68 553 L172 553" stroke="${sh(zA,.35)}" stroke-width=".8"/>
+    ${plines}
+    <ellipse cx="102" cy="576" rx="11" ry="4.5" fill="${sh(k,-.15)}"/><ellipse cx="138" cy="576" rx="11" ry="4.5" fill="${sh(k,-.15)}"/>
+    <!-- neck, chest -->
+    <path d="M108 84 L132 84 L135 122 L105 122 Z" fill="url(#${i}-skl)"/>
+    <ellipse cx="120" cy="92" rx="13" ry="5" fill="${sh(k,-.35)}" opacity=".35"/>
+    <path d="M88 124 Q120 110 152 124 L150 142 Q120 160 90 142 Z" fill="url(#${i}-sk)"/>
+    <!-- blouse -->
+    <path d="M86 126 Q96 122 106 122 Q120 150 134 122 Q144 122 154 126 C160 132 162 150 160 170 L156 205 Q120 214 84 205 L80 170 C78 150 80 132 86 126 Z" fill="url(#${i}-bl)"/>
+    <path d="M88 125 C76 130 70 150 70 175 L91 179 L96 140 Z" fill="url(#${i}-bl)"/>
+    <path d="M70 175 L91 179" stroke="${gold}" stroke-width="3.5"/>
+    <path d="M106 122 Q120 150 134 122" stroke="${gold}" stroke-width="2" fill="none"/>
+    <path d="M100 172 Q120 180 140 172" stroke="rgba(0,0,0,.18)" stroke-width="2" fill="none"/>
+    <!-- midriff -->
+    <path d="M84 204 Q120 214 156 204 L153 226 L87 226 Z" fill="url(#${i}-skl)"/>
+    <ellipse cx="121" cy="219" rx="1.4" ry="2.2" fill="${sh(k,-.4)}"/>
+    <!-- front pallu -->
+    <path d="M80 212 L101 242 L162 142 L154 118 L136 119 Z" fill="url(#${i}-pd)"/>
+    <path d="M88 222 L146 122 M94 230 L152 128 M84 216 L140 120" stroke="rgba(0,0,0,.16)" stroke-width="1.6"/>
+    <path d="M101 242 L162 142" stroke="url(#${i}-z)" stroke-width="10"/>
+    <path d="M97 236 L158 136" stroke="${sh(zA,-.3)}" stroke-width="1"/>
+    <path d="M80 212 L136 119" stroke="${zA}" stroke-width="3"/>
+    <path d="M140 118 L161 118 L165 136 L150 141 Z" fill="${sh(s,-.2)}"/>
+    <!-- sleeve + right arm -->
+    <path d="M152 125 C164 130 170 150 170 175 L149 179 L144 140 Z" fill="url(#${i}-bl)"/>
+    <path d="M170 175 L149 179" stroke="${gold}" stroke-width="3.5"/>
+    <path d="M151 178 C150 205 151 240 154 302 L166 302 C170 270 172 240 170 200 C170 190 170 182 169 176 Z" fill="url(#${i}-skl)"/>
+    <ellipse cx="160" cy="314" rx="7.5" ry="13" fill="url(#${i}-sk)"/>
+    <rect x="152.5" y="284" width="15.5" height="3" rx="1.5" fill="${gold}"/><rect x="152.7" y="289" width="15" height="3" rx="1.5" fill="${b}"/><rect x="153" y="294" width="14.6" height="3" rx="1.5" fill="${gold}"/>
+    <!-- head -->
+    <g transform="translate(0,7)">
+    <ellipse cx="120" cy="56" rx="31" ry="36" fill="url(#${i}-hr)"/>
+    <circle cx="150" cy="52" r="15" fill="url(#${i}-hr)"/>
+    ${jas}
+    <ellipse cx="95.5" cy="64" rx="4" ry="7" fill="${sh(k,-.12)}"/><ellipse cx="144.5" cy="64" rx="4" ry="7" fill="${sh(k,-.12)}"/>
+    <path d="M96 40 C94 66 102 88 120 94 C138 88 146 66 144 40 C140 30 100 30 96 40 Z" fill="url(#${i}-sk)"/>
+    <path d="M100 74 C104 86 112 92 120 94 C128 92 136 86 140 74" stroke="${sh(k,-.3)}" stroke-width="2" fill="none" opacity=".35"/>
+    <path d="M92 62 C86 20 154 20 148 62 C146 50 139 42 129 40 Q123 39 120 44 Q117 39 111 40 C101 42 94 50 92 62 Z" fill="url(#${i}-hr)"/><path d="M104 30 Q114 25 124 27" stroke="#5a4236" stroke-width="1.5" fill="none" opacity=".6"/>
+    <path d="M119.5 33 L120.5 33 L120.3 42 L119.7 42 Z" fill="#b3122e"/>
+    <path d="M105 51 Q110.5 47.5 116 50" stroke="${hair}" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <path d="M124 50 Q129.5 47.5 135 51" stroke="${hair}" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <path d="M105.5 59 Q111 54.5 116.5 59 Q111 62.5 105.5 59 Z" fill="#fbf7f2"/><circle cx="111" cy="58.6" r="2.5" fill="#2a1810"/><circle cx="111.8" cy="57.9" r=".7" fill="#fff"/>
+    <path d="M104.5 59 Q111 53.5 117.5 58.5" stroke="#1a100b" stroke-width="1.4" fill="none"/>
+    <path d="M123.5 59 Q129 54.5 134.5 59 Q129 62.5 123.5 59 Z" fill="#fbf7f2"/><circle cx="129" cy="58.6" r="2.5" fill="#2a1810"/><circle cx="129.8" cy="57.9" r=".7" fill="#fff"/>
+    <path d="M122.5 58.5 Q129 53.5 135.5 59" stroke="#1a100b" stroke-width="1.4" fill="none"/>
+    <circle cx="120" cy="47" r="1.7" fill="#b3122e"/>
+    <path d="M119.5 61 C118.5 66 117 70 117.5 72 Q120 74 123 72" stroke="${sh(k,-.38)}" stroke-width="1.1" fill="none" opacity=".7"/>
+    <circle cx="117.2" cy="71.6" r=".9" fill="#d4a73a"/>
+    <path d="M113 80 Q116.5 77.6 120 79.2 Q123.5 77.6 127 80 Q120 82.2 113 80 Z" fill="${o.lip||'#a8424a'}"/>
+    <path d="M113 80 Q120 86.5 127 80 Q120 82 113 80 Z" fill="${sh(o.lip||'#a8424a',.15)}"/>
+    <ellipse cx="106" cy="72" rx="6" ry="3.5" fill="#e0707a" opacity=".14"/><ellipse cx="134" cy="72" rx="6" ry="3.5" fill="#e0707a" opacity=".14"/>
+    <circle cx="95.5" cy="73" r="2" fill="${gold}"/><path d="M91.5 81 Q95.5 74 99.5 81 L98.5 85 L92.5 85 Z" fill="${gold}"/><circle cx="93" cy="86.5" r=".9" fill="${gold}"/><circle cx="95.5" cy="87" r=".9" fill="${gold}"/><circle cx="98" cy="86.5" r=".9" fill="${gold}"/>
+    <circle cx="144.5" cy="73" r="2" fill="${gold}"/><path d="M140.5 81 Q144.5 74 148.5 81 L147.5 85 L141.5 85 Z" fill="${gold}"/><circle cx="142" cy="86.5" r=".9" fill="${gold}"/><circle cx="144.5" cy="87" r=".9" fill="${gold}"/><circle cx="147" cy="86.5" r=".9" fill="${gold}"/>
+    </g>
+    <path d="M106 108 Q120 130 134 108" stroke="${gold}" stroke-width="2.6" fill="none"/>
+    <path d="M110 112 Q120 124 130 112" stroke="${sh(gold,.3)}" stroke-width="1" fill="none"/>
+    <circle cx="120" cy="121" r="3.4" fill="${gold}"/><circle cx="120" cy="121" r="1.4" fill="#a3122a"/>
     </svg>`;
   }
   const models=[
-    {label:'Model in orange Kanchipuram silk with gold zari border',saree:'#e0761c',border:'#c4952e',blouse:'#b3122e',skin:'#c48a5c',name:'Kanchipuram silk'},
-    {label:'Model in cream Kerala kasavu saree with gold border',saree:'#f4eedf',border:'#d0a33a',blouse:'#2f6b45',skin:'#a96f47',name:'Kerala kasavu'},
-    {label:'Model in teal soft silk saree with purple border',saree:'#1593b8',border:'#5b2a6e',blouse:'#5b2a6e',skin:'#dba077',name:'Soft silk'}
+    {label:'Model in orange Kanchipuram silk with gold zari border',saree:'#e0761c',border:'#c4952e',blouse:'#b3122e',skin:'#c48a5c',lip:'#9e3a44',name:'Kanchipuram silk'},
+    {label:'Model in cream Kerala kasavu saree with gold border',saree:'#f4eedf',border:'#d0a33a',blouse:'#2f6b45',skin:'#a96f47',lip:'#8e3b40',name:'Kerala kasavu'},
+    {label:'Model in teal soft silk saree with purple border',saree:'#1593b8',border:'#5b2a6e',blouse:'#5b2a6e',skin:'#dba077',lip:'#b0474f',name:'Soft silk'}
   ];
   document.getElementById('stage').innerHTML=models.map(m=>`<div class="model">${model(m)}<small>${m.name}</small></div>`).join('');
 
