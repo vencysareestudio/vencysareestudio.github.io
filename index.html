@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Vency's Saree Studio</title>
 <meta name="claude:viewport-fit-sides" content="cover">
-<meta name="description" content="Vency's Saree Studio, Pandalam – saree pre-pleating, box folding and saree rolling. Call or WhatsApp 89211 91218.">
+<meta name="description" content="Vency's Saree Pre Pleating and Rolling Service, Pandalam. Saree pre-pleating, box folding and saree rolling. Rated 4.7 on Google. Call or WhatsApp 89211 91218.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Mulish:wght@400;600;700&display=swap">
 <style>
@@ -109,6 +109,9 @@ a{color:var(--peacock)}
 .rev{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:10px}
 .stars{color:var(--zari);letter-spacing:2px}
 .rev .who{margin-top:auto;font-size:.85rem;color:var(--muted)}
+.rating{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.rating b{font-family:var(--display);font-weight:400;font-size:2.4rem;line-height:1;color:var(--fg)}
+.rating small{color:var(--muted);font-size:.9rem}
 
 /* visit */
 .visit{display:grid;grid-template-columns:1fr 1fr;gap:22px}
@@ -151,7 +154,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
 <header class="hero">
   <div class="wrap hero-grid">
     <div>
-      <div class="eyebrow">Pandalam · Saree pre-pleating &amp; rolling</div>
+      <div class="eyebrow">Vency's Saree Pre-Pleating &amp; Rolling Service · Pandalam</div>
       <h1>Drape your saree in <em>two minutes</em>, perfectly pleated.</h1>
       <p class="lead">Vency pre-pleats, presses and box-folds your sarees so the pleats and pallu fall exactly right on the day. For weddings, functions, office wear and travel.</p>
       <div class="cta-row">
@@ -230,15 +233,17 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     <div class="wrap">
       <div class="panel-head">
         <div><div class="eyebrow">Customer reviews</div><h2>What customers say</h2></div>
+        <div class="rating"><b>4.7</b><span class="stars" aria-label="4.7 out of 5">★★★★★</span><small>14 Google reviews</small></div>
       </div>
       <div class="reviews" id="revList" hidden></div>
       <div class="rev-empty">
-        <div class="gbadge" aria-hidden="true">★</div>
+        <div class="gbadge" aria-hidden="true">G</div>
         <div>
-          <h3>Read and write reviews on Google</h3>
-          <p>Customer reviews for Vency's Saree Studio are on Google. Had your saree pleated with us? A short review helps other customers in Pandalam find us.</p>
+          <h3>Read all reviews or write one on Google</h3>
+          <p>These are reviews customers left on Google. Had your saree pleated with us? A short review helps other families in Pandalam find Vency.</p>
           <div class="cta-row">
-            <a class="btn primary" id="gReviews" href="https://www.google.com/maps/search/?api=1&amp;query=Vency%27s+Saree+Studio+Pandalam" target="_blank" rel="noopener">See reviews on Google</a>
+            <a class="btn primary" href="https://www.google.com/search?kgmid=/g/11l_52zfwq&amp;q=Vency%27s+Saree+Pre+Pleating+and+Rolling+Service" target="_blank" rel="noopener">Write a Google review</a>
+            <a class="btn ghost" href="https://maps.google.com/?cid=1280736159441599418" target="_blank" rel="noopener">See all reviews on Google Maps</a>
           </div>
         </div>
       </div>
@@ -258,8 +263,11 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
             <div class="row"><dt>Phone</dt><dd><a href="tel:+918921191218" id="ph" class="big">+91 89211 91218</a><button class="copy" data-copy="+91 89211 91218">Copy</button></dd></div>
             <div class="row"><dt>WhatsApp</dt><dd><a href="https://wa.me/918921191218" target="_blank" rel="noopener">Chat on WhatsApp</a></dd></div>
             <div class="row"><dt>Address</dt><dd>Ashwini House, Ground Floor<br>CM Hospital Road, Near Reading Library<br>Pandalam, Kerala 689501<button class="copy" data-copy="Ashwini House, Ground Floor, CM Hospital Road, Near Reading Library, Pandalam 689501">Copy</button></dd></div>
+            <div class="row"><dt>Timings</dt><dd>Open until 8:00 pm</dd></div>
+            <div class="row"><dt>Instagram</dt><dd><a href="https://www.instagram.com/vencys_saree_pleating_service/" target="_blank" rel="noopener">@vencys_saree_pleating_service</a></dd></div>
+            <div class="row"><dt>Parking</dt><dd>Parking available at the house. The approach road is narrow, so drive carefully.</dd></div>
           </dl>
-          <div class="map"><a href="https://www.google.com/maps/search/?api=1&amp;query=CM+Hospital+Road+Reading+Library+Pandalam+689501" target="_blank" rel="noopener">Open in Google Maps ↗</a></div>
+          <div class="map"><a href="https://maps.google.com/?cid=1280736159441599418" target="_blank" rel="noopener">Get directions on Google Maps ↗</a></div>
         </div>
         <div class="card">
           <h3 style="font-size:1.4rem">Book a pleating</h3>
@@ -289,7 +297,17 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
 <script>
 /* ---- Add Google reviews here: copy each review from Google Maps into this list ----
    Example: {name:"Anu", stars:5, text:"Pleats were perfect for my wedding.", when:"Oct 2026"}  */
-const REVIEWS = [];
+const REVIEWS = [
+  {name:"Nishi P.", stars:5, when:"Wedding engagement", text:"Vency chechi was absolutely fantastic! We contacted her just one day before the wedding engagement… We dropped the sarees at 9:30 PM, and she had them ready by 6:30 AM the next morning. The sarees were done so neatly and perfectly, with beautiful pleating and finishing. She also patiently explained how to drape and wear the pre-pleated saree properly."},
+  {name:"Kalyani K.", stars:5, when:"First pre-pleated saree", text:"First time trying a pre-pleated saree and I'm honestly obsessed 😍 Didn't expect it to turn out this good! Got sooo many compliments 💕 Way better than I ever imagined!"},
+  {name:"Vineeth V K.", stars:5, when:"Relative's wedding", text:"My mom recently used Vency's Saree Pre-Pleating and Rolling Service for a relative's wedding, and she couldn't stop praising them. The pleating was done perfectly, making it so easy to drape on the day of the event. Their attention to detail and quality of work truly stand out. Highly recommended!"},
+  {name:"Sidd", stars:5, when:"Saree rolling", text:"One of the few places in this area that offers saree rolling services. The owner is very friendly and clearly explains the process. She is also happy to do the work in front of you if you prefer… The service is quite fast as well. There is ample parking space available at the house itself."},
+  {name:"Anchu Anna V.", stars:5, when:"Pre-pleating", text:"The best in town for saree pre-pleating! Kind, sweet, and extremely talented. The work is neatly done within just 1 hour – truly excellent craftsmanship."},
+  {name:"Varsha M.", stars:5, when:"Saree rolling", text:"It was really good how the saree was rolled. It made draping very easy and looked even more beautiful. We were so happy—thank you so much! 💞"},
+  {name:"Fathima F.", stars:5, when:"Pre-pleating", text:"Loved the pre pleating work. The pleats were even and beautifully done. Highly recommended."},
+  {name:"Nancy B.", stars:5, when:"Pre-pleating", text:"Excellent saree pre-pleating service! Neat, elegant, and made draping so effortless. 👌 Highly recommended."},
+  {name:"Malavika P.", stars:5, when:"Pre-pleating", text:"Neat, even pleats and easier drape. ❤️"}
+];
 
 (function(){
   // Illustrated models
@@ -372,7 +390,7 @@ const REVIEWS = [];
     const l=document.getElementById('revList');l.hidden=false;
     REVIEWS.forEach(r=>{const a=document.createElement('article');a.className='rev';
       a.innerHTML='<div class="stars"></div><p></p><div class="who"></div>';
-      a.children[0].textContent='★'.repeat(r.stars||5);a.children[1].textContent=r.text;a.children[2].textContent=r.name+(r.when?' · '+r.when:'')+' · Google review';l.appendChild(a)});
+      a.children[0].textContent='★'.repeat(r.stars||5);a.children[1].textContent=r.text;a.children[2].textContent=r.name+(r.when?' · '+r.when:'')+' · via Google';l.appendChild(a)});
   }
 
   // Copy buttons
